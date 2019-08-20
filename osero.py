@@ -84,7 +84,7 @@ class Board():
                 self.assist[y][x] = Stone(pos,5,0)
         for i in range(3,5):
             for j in range(3,5):
-                self.a[i][j].set_side((i+j)%2+1)
+                self.a[i][j].set_side((i+j+1)%2+1)
         
         self.next_turn()
         
