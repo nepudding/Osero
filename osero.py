@@ -5,7 +5,7 @@ import sys
 
 SCREEN = Rect(0,0,600,700)       
 B_RECT = Rect(0,100,600,600)
-COLOR = ["","黒","白"]
+COLOR = ["","Black","White"]
 
 class Stone():
     def __init__ (self,pos,size,side): # 位置、大きさ、向き(0無 1黒 2白)
@@ -44,7 +44,7 @@ class ScoreBoard():
     black = 2
     def __init__(self):
         self.sysfont = pygame.font.SysFont("hg行書体hgp行書体hgs行書体",80)
-        self.text = self.sysfont.render("黒の番",True,(0,0,0))
+        self.text = self.sysfont.render("Black player",True,(0,0,0))
         self.b_score = self.sysfont.render(str(self.black),True,(255,255,255))
         self.w_score = self.sysfont.render(str(self.white),True,(0,0,0))
     def draw(self,screen):
@@ -110,7 +110,7 @@ class Board():
                     self.game_end()
     def next_turn(self):
         self.turn = self.turn%2 +1
-        self.score.set_text(COLOR[self.turn]+"の番",self.turn)
+        self.score.set_text(COLOR[self.turn]+" player",self.turn)
         hoge = 0
         for i in range(8):
             for j in range(8):
@@ -127,10 +127,10 @@ class Board():
             win = 1
         else:
             win = 0
-        text = ["引き分け","黒の勝ち","白の勝ち"][win]
+        text = ["Draw","Black Win","White Win"][win]
         self.score.set_text(text,win)
     def pass_turn(self):
-        self.message = Message("パ ス",(300,200),(255,0,0),"hg行書体hgp行書体hgs行書体",150,time.time()+0.8)#,(0,0),(0,0,0),"hg行書体hgp行書体hgs行書体",0,0)
+        self.message = Message("Pass",(300,200),(255,0,0),"hg行書体hgp行書体hgs行書体",150,time.time()+0.8)#,(0,0),(0,0,0),"hg行書体hgp行書体hgs行書体",0,0)
 
     def can_put(self,x,y):
         if self.a[y][x].side != 0:
@@ -156,7 +156,7 @@ class Board():
 def main():
     pygame.init()
     screen = pygame.display.set_mode(SCREEN.size)
-    pygame.display.set_caption('オセロを作りたかった')
+    pygame.display.set_caption('Osero')
     stoneSize = 33
     clock = pygame.time.Clock()
 
