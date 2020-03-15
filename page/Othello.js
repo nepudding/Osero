@@ -48,6 +48,7 @@ class Board{
         }
     }
     draw(){
+        // 石の描画
         for(var i=0; i<STAGE_SIZE;i++){
             for(var j=0;j<STAGE_SIZE;j++){
                 this.stones[i][j].draw();
