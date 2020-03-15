@@ -3,22 +3,8 @@ var ctx = canvas.getContext("2d");
 
 const STONE_SIZE = 40;
 const STAGE_SIZE = 8;
-var COLOR = [128,120,120];
+var COLOR = 0.0
 
-function getBlack(){
-    var col = "#";
-    for(var i=0;i<3;i++){
-        col += ("0"+COLOR[i].toString(16)).slice(-2);
-    }
-    return col;
-}
-function getWhite(){
-    var col = "#";
-    for(var i=0;i<3;i++){
-        col += ("0"+(255-COLOR[i]).toString(16)).slice(-2);
-    }
-    return col;
-}
 class Stone{
     constructor(x,y,side){
         this.x = x;
@@ -29,8 +15,23 @@ class Stone{
         if(this.side == 0) return;
         ctx.beginPath();
         ctx.arc(this.x,this.y,STONE_SIZE,0,Math.PI*2);
-        if(this.side == 1)ctx.fillStyle = getBlack();
-        if(this.side == 2)ctx.fillStyle = getWhite();
+        var gradient = ctx.createLinearGradient(0,0,800,900);
+        if(this.side == 1){
+            gradient.addColorStop((COLOR+0)%1,'rgb(255,0,0)')
+            gradient.addColorStop((COLOR+1/6)%1,'rgb(255,255,0)')
+            gradient.addColorStop((COLOR+2/6)%1,'rgb(0,255,0)')
+            gradient.addColorStop((COLOR+3/6)%1,'rgb(0,255,255)')
+            gradient.addColorStop((COLOR+4/6)%1,'rgb(0,0,255)')
+            gradient.addColorStop((COLOR+5/6)%1,'rgb(0,255,255)')
+        }else{
+            gradient.addColorStop((COLOR+0)%1,'rgb(0,255,255)')
+            gradient.addColorStop((COLOR+1/6)%1,'rgb(0,0,255)')
+            gradient.addColorStop((COLOR+2/6)%1,'rgb(255,0,255)')
+            gradient.addColorStop((COLOR+3/6)%1,'rgb(255,0,0)')
+            gradient.addColorStop((COLOR+4/6)%1,'rgb(255,255,0)')
+            gradient.addColorStop((COLOR+5/6)%1,'rgb(255,0,0)')
+        }
+        ctx.fillStyle = gradient
         ctx.fill();
         ctx.closePath();
     }
@@ -57,13 +58,9 @@ class Board{
 
 var board = new Board();
 
-
-board.draw()
-
 function draw(){
     board.draw()
-    for(var i=0;i<3;i++){
-        COLOR[i] = (COLOR[i]+i+3)%256
-    }
+    COLOR += 0.01
+    COLOR %= 1
 }
 setInterval(draw,10);
